@@ -1,8 +1,8 @@
 <script lang="ts" setup>
-import type { GestureDir } from '@/services/types'
-import GestureDetection from './components/GestureDetection.vue'
-import { execGestures } from './components/actions'
 import { getGestureService } from '@/services/GestureService'
+import type { GestureDir } from '@/services/types'
+import { execGestures } from './components/actions'
+import GestureDetection from './components/GestureDetection.vue'
 import { isMacOS } from './components/utils'
 
 const gestureService = getGestureService()
