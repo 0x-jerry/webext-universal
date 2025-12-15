@@ -39,3 +39,5 @@ export const dirCharMap = {
   [GestureDir.Down]: '↓',
   [GestureDir.Left]: '←',
 }
+
+export const isMacOS = () => navigator.userAgent.includes("AppleWebKit")
