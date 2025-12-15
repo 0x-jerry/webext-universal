@@ -27,7 +27,7 @@ useResizeObserver(bookmarksEl, () => {
   <div class="shadow-lg flex fixed top-0 left-0 w-full z-10 bg-white">
     <div class="flex overflow-auto flex-1 w-0" ref="bookmarksEl">
       <template v-for="item in bookmarksBar?.children">
-        <Dropdown :title="item.title" :menus="item.children" />
+        <Dropdown :title="item.title" :url="item.url" :menus="item.children" />
       </template>
     </div>
     <div v-if="bookmarksOther?.children?.length" :class="{ 'split-border': hasScrollbar }">
