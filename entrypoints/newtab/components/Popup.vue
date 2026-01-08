@@ -2,10 +2,7 @@
 import {
   autoUpdate,
   flip,
-  offset,
   type Placement,
-  shift,
-  size,
   useFloating,
 } from '@floating-ui/vue'
 import { useElementHover } from '@vueuse/core';
@@ -19,9 +16,7 @@ const floatingEl = useTemplateRef('floatingEl')
 
 const props = defineProps<PopupProps>()
 
-const isHoverReference = useElementHover(referenceEl, {
-  delayLeave: 10
-})
+const isHoverReference = useElementHover(referenceEl)
 
 const isHoverContent = useElementHover(floatingEl)
 
@@ -29,9 +24,7 @@ const isVisible = computed(() => isHoverReference.value || isHoverContent.value)
 
 const { floatingStyles } = useFloating(referenceEl, floatingEl, {
   placement: computed(() => props.placement),
-  middleware: [offset({
-    mainAxis: 1,
-  }), flip()],
+  middleware: [flip()],
   whileElementsMounted: autoUpdate,
 })
 
