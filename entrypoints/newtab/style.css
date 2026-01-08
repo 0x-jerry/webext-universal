@@ -3,7 +3,8 @@
   height: 0px;
 }
 
-html, body {
+html,
+body {
   font-size: 18px;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }

@@ -181,9 +181,9 @@ function clearPath() {
 }
 
 .gesture-direction {
-  @size: 30px;
-  width: @size;
-  height: @size;
+  --size: 30px;
+  width: var(--size);
+  height: var(--size);
   display: flex;
   align-items: center;
   justify-content: center;

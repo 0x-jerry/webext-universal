@@ -1,4 +1,4 @@
-import { GestureDir, type GestureAction } from './types'
+import type { GestureAction, GestureDir } from './types'
 
 export async function matchThenExecGestures(
   actions: GestureAction[],

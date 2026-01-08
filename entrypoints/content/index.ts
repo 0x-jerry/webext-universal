@@ -16,9 +16,9 @@ export default defineContentScript({
         const vueApp = createApp(App)
 
         vueApp.mount(rootEl)
-      }
+      },
     })
 
     ui.mount()
-  }
+  },
 })

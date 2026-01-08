@@ -40,13 +40,6 @@ const contentActions: GestureAction[] = [
       window.history.forward()
     },
   },
-  {
-    name: 'Close Tab',
-    gesture: [GestureDir.Down, GestureDir.Right],
-    action() {
-      window.close()
-    },
-  },
 ]
 
 export async function execGestures(gesture: GestureDir[]) {
