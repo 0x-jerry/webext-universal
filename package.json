@@ -2,7 +2,7 @@
   "name": "webext-universal",
   "description": "Mouse gestures for web browser.",
   "private": true,
-  "version": "0.2.8",
+  "version": "0.2.9",
   "type": "module",
   "scripts": {
     "dev": "wxt",
