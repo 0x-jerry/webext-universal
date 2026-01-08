@@ -19,21 +19,21 @@
   "dependencies": {
     "@floating-ui/vue": "^1.1.9",
     "@vueuse/core": "^14.1.0",
-    "@webext-core/proxy-service": "^1.2.1",
-    "vue": "^3.5.25"
+    "@webext-core/proxy-service": "^1.2.2",
+    "vue": "^3.5.26"
   },
   "devDependencies": {
     "@0x-jerry/x-release": "^2.4.1",
-    "@biomejs/biome": "^2.3.8",
+    "@biomejs/biome": "^2.3.11",
     "@types/chrome": "^0.1.32",
     "@wxt-dev/module-vue": "^1.0.3",
     "@wxt-dev/unocss": "^1.0.1",
     "crx": "^5.0.1",
-    "less": "^4.4.2",
+    "less": "^4.5.1",
     "normalize.css": "^8.0.1",
     "tsx": "^4.21.0",
     "typescript": "^5.9.3",
-    "unocss": "^66.5.10",
-    "wxt": "^0.20.11"
+    "unocss": "^66.5.12",
+    "wxt": "^0.20.13"
   }
 }

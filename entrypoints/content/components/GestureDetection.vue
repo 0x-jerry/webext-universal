@@ -1,8 +1,8 @@
 <script lang="ts" setup>
 import { useEventListener } from '@vueuse/core'
 import { reactive } from 'vue'
-import { calcDirection, calcPath, dirCharMap, distance } from './utils'
 import type { GestureDir, GesturePosition } from '@/services/types'
+import { calcDirection, calcPath, dirCharMap, distance } from './utils'
 
 export interface GestureDetectionProps {
   /**
@@ -28,87 +28,107 @@ const gestureState = reactive({
 
 const trackerPath = computed(() => calcPath(gestureState.tracker))
 
-useEventListener(window, 'contextmenu', (evt) => {
-  if (gestureState.preventCtxMenu) {
+useEventListener(
+  window,
+  'contextmenu',
+  (evt) => {
+    if (gestureState.preventCtxMenu) {
+      evt.preventDefault()
+    }
+  },
+  {
+    capture: true,
+  },
+)
+
+useEventListener(
+  window,
+  'mousedown',
+  (evt) => {
+    if (evt.button !== 2) {
+      return
+    }
+
+    if (gestureState.preventCtxMenu) {
+      gestureState.processing = false
+      gestureState.preventCtxMenu = false
+      clearPath()
+      clearTimeout(gestureState.clearHandler)
+      return
+    }
+
+    gestureState.preventCtxMenu = true
+    gestureState.processing = true
     evt.preventDefault()
-  }
-}, {
-  capture: true
-})
+  },
+  {
+    capture: true,
+  },
+)
 
-useEventListener(window, 'mousedown', (evt) => {
-  if (evt.button !== 2) {
-    return
-  }
+useEventListener(
+  window,
+  'mouseup',
+  () => {
+    if (!gestureState.processing) {
+      return
+    }
 
-  if (gestureState.preventCtxMenu) {
-    gestureState.processing = false
-    gestureState.preventCtxMenu = false
-    clearPath()
     clearTimeout(gestureState.clearHandler)
-    return
-  }
 
-  gestureState.preventCtxMenu = true
-  gestureState.processing = true
-  evt.preventDefault()
-}, {
-  capture: true
-})
+    if (!gestureState.dirs.length) {
+      gestureState.preventCtxMenu = false
+      gestureState.processing = false
+      clearPath()
+      return
+    }
 
-useEventListener(window, 'mouseup', () => {
-  if (!gestureState.processing) {
-    return
-  }
-
-  clearTimeout(gestureState.clearHandler)
-
-  if (!gestureState.dirs.length) {
-    gestureState.preventCtxMenu = false
+    emit('detected', gestureState.dirs)
     gestureState.processing = false
     clearPath()
-    return
-  }
 
-  emit('detected', gestureState.dirs)
-  gestureState.processing = false
-  clearPath()
+    gestureState.clearHandler = window.setTimeout(() => {
+      gestureState.preventCtxMenu = false
+    }, gestureState.clearTimeout)
+  },
+  { capture: true },
+)
 
-  gestureState.clearHandler = window.setTimeout(() => {
-    gestureState.preventCtxMenu = false
-  }, gestureState.clearTimeout)
-}, { capture: true })
+useEventListener(
+  window,
+  'mousemove',
+  (evt) => {
+    if (!gestureState.processing) {
+      return
+    }
 
-useEventListener(window, 'mousemove', (evt) => {
-  if (!gestureState.processing) {
-    return
-  }
+    const currentPos = { x: evt.clientX, y: evt.clientY }
 
-  const currentPos = { x: evt.clientX, y: evt.clientY }
+    const latestPos = gestureState.tracker[gestureState.tracker.length - 1]
 
-  const latestPos = gestureState.tracker[gestureState.tracker.length - 1]
+    if (!latestPos) {
+      gestureState.tracker.push(currentPos)
+      return
+    }
 
-  if (!latestPos) {
+    const _distance = distance(latestPos, currentPos)
+
+    if (_distance < checkGap) {
+      return
+    }
+
+    const _dir = calcDirection(latestPos, currentPos)
+
+    if (gestureState.dirs.at(-1) !== _dir) {
+      gestureState.dirs.push(_dir)
+    }
+
     gestureState.tracker.push(currentPos)
-    return
-  }
-
-  const _distance = distance(latestPos, currentPos)
-
-  if (_distance < checkGap) {
-    return
-  }
-
-  const _dir = calcDirection(latestPos, currentPos)
-
-  if (gestureState.dirs.at(-1) !== _dir) {
-    gestureState.dirs.push(_dir)
-  }
-
-  gestureState.tracker.push(currentPos)
-}, {
-  capture: true
-})
+  },
+  {
+    capture: true,
+  },
+)
 
 function clearPath() {
   gestureState.dirs = []
