@@ -1,3 +1,4 @@
+import { registerContentServices } from '@/services/content'
 import App from './App.vue'
 
 export default defineContentScript({
@@ -5,6 +6,8 @@ export default defineContentScript({
   runAt: 'document_end',
   cssInjectionMode: 'ui',
   async main(ctx) {
+    registerContentServices()
+
     const ui = await createShadowRootUi(ctx, {
       name: 'user-gesture',
       position: 'inline',
