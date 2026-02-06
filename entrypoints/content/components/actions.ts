@@ -1,5 +1,8 @@
-import { type GestureAction, GestureDir } from '@/services/types'
-import { matchThenExecGestures } from '@/services/utils'
+import {
+  type GestureAction,
+  GestureDir,
+  matchThenExecGestures,
+} from '@/services/modules/gesture'
 
 const contentActions: GestureAction[] = [
   {

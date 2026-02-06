@@ -1,5 +1,5 @@
-import { registerGestureService } from '@/services/GestureService'
+import { registerBackgroundServices } from '@/services'
 
 export default defineBackground(() => {
-  registerGestureService()
+  registerBackgroundServices()
 })

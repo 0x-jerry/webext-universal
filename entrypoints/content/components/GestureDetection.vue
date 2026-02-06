@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { useEventListener } from '@vueuse/core'
 import { reactive } from 'vue'
-import type { GestureDir, GesturePosition } from '@/services/types'
+import type { GestureDir, GesturePosition } from '@/services/modules/gesture'
 import { calcDirection, calcPath, dirCharMap, distance } from './utils'
 
 export interface GestureDetectionProps {

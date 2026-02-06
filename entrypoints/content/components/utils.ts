@@ -1,4 +1,4 @@
-import { GestureDir, type GesturePosition } from '@/services/types'
+import { GestureDir, type GesturePosition } from '@/services/modules/gesture'
 
 export function calcDirection(p1: GesturePosition, p2: GesturePosition) {
   const x = p2.x - p1.x
