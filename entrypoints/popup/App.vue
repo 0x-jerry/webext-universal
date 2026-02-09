@@ -20,7 +20,7 @@ async function loadCurrentActiveTabData() {
 }
 
 async function applyUserAgent() {
-  await contentServiceClient.userAgent.change(state.userAgent)
+  await contentServiceClient.mainWorld.setUserAgent(state.userAgent)
 }
 
 </script>

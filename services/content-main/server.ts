@@ -1,10 +1,11 @@
 import { createRPCServer } from '@0x-jerry/utils'
-import { mainWorldServices } from './services'
+import { createServices } from './services'
 
 export function registerContentMainServices(script: HTMLScriptElement) {
+  console.log(`[content-main] server registered`)
   createRPCServer({
     namespace: 'content-main',
-    methods: mainWorldServices,
+    methods: createServices(),
     adaptor: {
       registerReceiveCallback(receiveCallback) {
         script.addEventListener('rpc', (_evt) => {
@@ -13,10 +14,13 @@ export function registerContentMainServices(script: HTMLScriptElement) {
             return
           }
 
-          receiveCallback(evt.detail)
+          if (receiveCallback(evt.detail)) {
+            console.log('[content-main] server receive data:', evt.detail)
+          }
         })
       },
       send(data) {
+        console.log('[content-main] server send data:', data)
         script.dispatchEvent(new CustomEvent('rpc', { detail: data }))
       },
     },
