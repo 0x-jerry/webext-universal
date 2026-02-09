@@ -1,4 +1,7 @@
-import { registerContentServices } from '@/services/content'
+import {
+  initializeMainWordServicesClient,
+  registerContentServices,
+} from '@/services/content'
 import App from './App.vue'
 
 export default defineContentScript({
@@ -7,6 +10,8 @@ export default defineContentScript({
   cssInjectionMode: 'ui',
   async main(ctx) {
     registerContentServices()
+    const injectResult = await injectScript('/content-main.js')
+    initializeMainWordServicesClient(injectResult.script)
 
     const ui = await createShadowRootUi(ctx, {
       name: 'user-gesture',

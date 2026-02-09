@@ -1,3 +1,2 @@
 export * from './client'
-export * from './main-world'
 export * from './server'

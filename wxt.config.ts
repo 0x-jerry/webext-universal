@@ -35,6 +35,10 @@ export default defineConfig({
         resources: ['_favicon/*'],
         matches: ['<all_urls>'],
       },
+      {
+        resources: ['content-main.js'],
+        matches: ['<all_urls>'],
+      },
     ],
   },
 })
