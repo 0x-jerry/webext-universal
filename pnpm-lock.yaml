@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@0x-jerry/utils':
-        specifier: ^6.0.1
-        version: 6.0.1
+        specifier: ^6.1.0
+        version: 6.1.0
       '@floating-ui/vue':
         specifier: ^1.1.9
         version: 1.1.9(vue@3.5.26(typescript@5.9.3))
@@ -69,8 +69,8 @@ packages:
   '@0x-jerry/utils@5.0.0':
     resolution: {integrity: sha512-F3TnKTJrCRCKe9FG0eWEVlgYDFusC6p0hePjyR7mKAgGj61/4lScng7Dj/ss2Fo2zJvH8qWv2G7fSvW45n7fQQ==}
 
-  '@0x-jerry/utils@6.0.1':
-    resolution: {integrity: sha512-nzetEe/gdkI0HipO4GfEIqkm0Le8xLQO6W1lUU2wqgVUCjV8NHddLgO1Coh3hoZxR8al0PBFd6g8Yio6mJhv3g==}
+  '@0x-jerry/utils@6.1.0':
+    resolution: {integrity: sha512-676BrHditL6Xil9zvBnbkzCf/RKgJcG3AbeOdmJowRMYZDgAp68lKEjfqbBmbJ8IaAd/K/8AkbW/WDSipewqvw==}
 
   '@0x-jerry/x-release@2.4.1':
     resolution: {integrity: sha512-NVYwRr9A6bSV6HYAREDmCyZN57R3JZ97p+TTL88MvuzPbkpwfmyd4/iVvEnSD9dfRRrCOjizk6s8LU0FKf19hw==}
@@ -2322,7 +2322,7 @@ snapshots:
       nanoid: 5.1.6
       picocolors: 1.1.1
 
-  '@0x-jerry/utils@6.0.1':
+  '@0x-jerry/utils@6.1.0':
     dependencies:
       fflate: 0.8.2
       nanoid: 5.1.6

@@ -17,7 +17,7 @@
     "release": "x-release --publish false"
   },
   "dependencies": {
-    "@0x-jerry/utils": "^6.0.1",
+    "@0x-jerry/utils": "^6.1.0",
     "@floating-ui/vue": "^1.1.9",
     "@vueuse/core": "^14.1.0",
     "tdesign-vue-next": "^1.18.2",

@@ -1,25 +1,27 @@
 import { createRPCServer, type Procedure } from '@0x-jerry/utils'
-import { isCommunicationProtocol } from '../utils'
 
 export function registerService<T extends Procedure>(name: string, methods: T) {
+  console.log(`[${name}] service registered`)
   const senderMap = new Map<string, Browser.runtime.MessageSender>()
 
   const server = createRPCServer({
+    namespace: name,
     adaptor: {
-      receive(receiver) {
+      registerReceiveCallback(receiveCallback) {
         browser.runtime.onMessage.addListener((data, sender) => {
+          if (!receiveCallback(data)) {
+            return
+          }
+
           console.log(`[${name}] server receive:`, data)
 
-          if (isCommunicationProtocol(data)) {
-            if (sender.tab?.id) {
-              senderMap.set(data._, sender)
-            }
-
-            receiver(data)
+          if (sender.tab?.id) {
+            senderMap.set(data._, sender)
           }
         })
       },
       async send(data) {
+        await nextTick()
         const sender = senderMap.get(data._)
         senderMap.delete(data._)
 
@@ -38,6 +40,5 @@ export function registerService<T extends Procedure>(name: string, methods: T) {
     methods,
   })
 
-  console.log(`${name} services registered`)
   return server
 }
