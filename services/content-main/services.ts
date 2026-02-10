@@ -1,25 +1,25 @@
+import { useLocalStorage } from "@vueuse/core"
+import { EXT_NAME } from "@/utils"
+
 export function createServices() {
   const userAgentState = {
     rawUserAgent: navigator.userAgent,
-    newUserAgent: '',
-    defined: false,
+    newUserAgent: useLocalStorage(`${EXT_NAME}:newUserAgent`, ''),
   }
+
+  Object.defineProperty(navigator, 'userAgent', {
+    get() {
+      return userAgentState.newUserAgent.value || userAgentState.rawUserAgent
+    },
+  })
 
   return {
     setUserAgent(userAgent: string) {
-      userAgentState.newUserAgent = userAgent
-
-      if (userAgentState.defined) {
-        return
-      }
-
-      userAgentState.defined = true
-      Object.defineProperty(navigator, 'userAgent', {
-        get() {
-          return userAgentState.newUserAgent || userAgentState.rawUserAgent
-        },
-      })
+      userAgentState.newUserAgent.value = userAgent
     },
+    getUserAgent() {
+      return userAgentState.newUserAgent.value || userAgentState.rawUserAgent
+    }
   }
 }
 

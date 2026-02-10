@@ -3,7 +3,6 @@ import { Button, Select, Tag } from 'tdesign-vue-next';
 import { version } from '../../package.json'
 import { contentServiceClient } from './services';
 
-
 const state = reactive({
   userAgent: '',
 })
@@ -16,7 +15,7 @@ const userAgentOptions = [
 ]
 
 async function loadCurrentActiveTabData() {
-
+  state.userAgent = await contentServiceClient.mainWorld.getUserAgent()
 }
 
 async function applyUserAgent() {

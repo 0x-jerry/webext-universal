@@ -20,18 +20,19 @@ function createMainWorldProxy() {
           const mainWorldServiceClient = getMainWorldServiceClient()
 
           const fn = getValue(mainWorldServiceClient, keyPath)
-          fn(...args)
+
+          return fn(...args)
         }
       : {}
 
     const p = new Proxy(targetValue, {
       get(_, key) {
-        if (key === 'valueOf' || key === Symbol.toPrimitive) {
+        if (
+          key === 'valueOf' ||
+          key === Symbol.toPrimitive ||
+          key === 'toString'
+        ) {
           return EMPTY_FN
-        }
-
-        if (key === 'toString') {
-          return String(targetValue)
         }
 
         if (isSymbol(key)) {
