@@ -4,6 +4,8 @@ import { browser } from 'wxt/browser'
 import Dropdown from './components/Dropdown.vue';
 import RecentClosed from './components/RecentClosed.vue';
 import TopSites from './components/TopSites.vue';
+import Button from './components/Button.vue';
+import Link from './components/Link.vue';
 
 const filter = ref('')
 
@@ -21,17 +23,35 @@ useResizeObserver(bookmarksEl, () => {
   if (!el) return
   hasScrollbar.value = el.scrollWidth > el.clientWidth
 })
+
+function open(url: string) {
+  browser.tabs.create({ url, active: true })
+}
 </script>
 
 <template>
-  <div class="shadow-lg flex fixed top-0 left-0 w-full z-10 bg-white">
-    <div class="flex overflow-auto flex-1 w-0" ref="bookmarksEl">
-      <template v-for="item in bookmarksBar?.children">
-        <Dropdown :title="item.title" :url="item.url" :menus="item.children" />
-      </template>
+  <div class="fixed fixed top-0 left-0 w-full">
+    <div class="shadow-lg flex z-10 bg-white">
+      <div class="flex overflow-auto flex-1 w-0" ref="bookmarksEl">
+        <template v-for="item in bookmarksBar?.children">
+          <Dropdown :title="item.title" :url="item.url" :menus="item.children" />
+        </template>
+      </div>
+      <div v-if="bookmarksOther?.children?.length" :class="{ 'split-border': hasScrollbar }">
+        <Dropdown :title="bookmarksOther.title" :menus="bookmarksOther.children" />
+      </div>
     </div>
-    <div v-if="bookmarksOther?.children?.length" :class="{ 'split-border': hasScrollbar }">
-      <Dropdown :title="bookmarksOther.title" :menus="bookmarksOther.children" />
+    <div class="flex justify-end">
+      <div class="mt-4 mx-4 w-150px flex flex-col">
+        <Button @click="open('chrome://bookmarks')">
+          <i class="icon i-carbon:star" />
+          Bookmarks
+        </Button>
+        <Button @click="open('chrome://settings')">
+          <i class="icon i-carbon:settings" />
+          Settings
+        </Button>
+      </div>
     </div>
   </div>
 
