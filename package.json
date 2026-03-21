@@ -17,24 +17,24 @@
     "release": "x-release --publish false"
   },
   "dependencies": {
-    "@0x-jerry/utils": "^6.1.1",
-    "@floating-ui/vue": "^1.1.9",
-    "@vueuse/core": "^14.1.0",
-    "tdesign-vue-next": "^1.18.2",
-    "vue": "^3.5.26"
+    "@0x-jerry/utils": "^6.4.2",
+    "@floating-ui/vue": "^1.1.11",
+    "@vueuse/core": "^14.2.1",
+    "tdesign-vue-next": "^1.18.5",
+    "vue": "^3.5.30"
   },
   "devDependencies": {
-    "@0x-jerry/x-release": "^2.4.1",
-    "@biomejs/biome": "^2.3.11",
-    "@types/chrome": "^0.1.32",
+    "@0x-jerry/x-release": "^3.0.1",
+    "@biomejs/biome": "^2.4.8",
+    "@types/chrome": "^0.1.38",
     "@wxt-dev/module-vue": "^1.0.3",
     "@wxt-dev/unocss": "^1.0.1",
     "crx": "^5.0.1",
-    "less": "^4.5.1",
+    "less": "^4.6.4",
     "normalize.css": "^8.0.1",
     "tsx": "^4.21.0",
     "typescript": "^5.9.3",
-    "unocss": "^66.5.12",
-    "wxt": "^0.20.13"
+    "unocss": "^66.6.7",
+    "wxt": "^0.20.20"
   }
 }
