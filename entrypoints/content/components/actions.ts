@@ -43,6 +43,29 @@ const contentActions: GestureAction[] = [
       window.history.forward()
     },
   },
+  {
+    name: 'Scroll Down',
+    gesture: [GestureDir.Down],
+    action() {
+      const offset = window.innerHeight * 0.8
+      window.scrollBy({
+        top: offset,
+        behavior: 'smooth',
+      })
+    },
+  },
+  {
+    name: 'Scroll Up',
+    gesture: [GestureDir.Up],
+    action() {
+      const offset = window.innerHeight * 0.8
+
+      window.scrollBy({
+        top: -offset,
+        behavior: 'smooth',
+      })
+    },
+  },
 ]
 
 export async function execGestures(gesture: GestureDir[]) {
