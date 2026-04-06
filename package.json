@@ -11,7 +11,7 @@
     "build:firefox": "wxt build -b firefox",
     "zip": "wxt zip",
     "zip:firefox": "wxt zip -b firefox",
-    "pack:crx": "crx pack .output/chrome-mv3 -o webext-universal.crx -p ./key.pem",
+    "pack:crx": "crx3 pack .output/chrome-mv3 -o webext-universal.crx -p ./key.pem",
     "build:prepare": "tsx ./scripts/prepare.ts",
     "postinstall": "wxt prepare",
     "release": "x-release --publish false"
@@ -20,20 +20,20 @@
     "@0x-jerry/utils": "^6.4.2",
     "@floating-ui/vue": "^1.1.11",
     "@vueuse/core": "^14.2.1",
-    "tdesign-vue-next": "^1.18.5",
-    "vue": "^3.5.30"
+    "tdesign-vue-next": "^1.18.6",
+    "vue": "^3.5.32"
   },
   "devDependencies": {
     "@0x-jerry/x-release": "^3.0.1",
-    "@iconify-json/carbon": "^1.2.19",
-    "@types/chrome": "^0.1.38",
+    "@iconify-json/carbon": "^1.2.20",
+    "@types/chrome": "^0.1.39",
     "@wxt-dev/module-vue": "^1.0.3",
     "@wxt-dev/unocss": "^1.0.1",
-    "crx": "^5.0.1",
+    "crx3": "^2.0.0",
     "less": "^4.6.4",
     "normalize.css": "^8.0.1",
     "tsx": "^4.21.0",
-    "typescript": "^5.9.3",
+    "typescript": "^6.0.2",
     "unocss": "^66.6.7",
     "wxt": "^0.20.20"
   }
