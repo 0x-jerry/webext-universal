@@ -43,6 +43,10 @@ function open(url: string) {
     </div>
     <div class="flex justify-end">
       <div class="mt-4 mx-4 w-150px flex flex-col">
+        <Button @click="open('chrome://history')">
+          <i class="icon i-carbon:server-time" />
+          History
+        </Button>
         <Button @click="open('chrome://bookmarks')">
           <i class="icon i-carbon:star" />
           Bookmarks
