@@ -41,7 +41,7 @@ function open(url: string) {
         <Dropdown :title="bookmarksOther.title" :menus="bookmarksOther.children" />
       </div>
     </div>
-    <div class="flex justify-end">
+    <div class="flex absolute right-0">
       <div class="mt-4 mx-4 w-150px flex flex-col">
         <Button @click="open('chrome://history')">
           <i class="icon i-carbon:server-time" />
