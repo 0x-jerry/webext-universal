@@ -1,17 +1,21 @@
 import { GestureDir, type GesturePosition } from '@/services/modules/gesture'
+import { normalizeToRange } from '@0x-jerry/utils'
 
 export function calcDirection(p1: GesturePosition, p2: GesturePosition) {
   const x = p2.x - p1.x
   const y = p2.y - p1.y
 
-  const deg = (Math.atan2(y, x) * 180) / Math.PI
+  let deg = (Math.atan2(y, x) * 180) / Math.PI
+  deg = normalizeToRange(deg, 0, 360)
 
-  if (deg >= -45 && deg <= 45) {
+  if (deg > 315 || deg <= 45) {
     return GestureDir.Right
   }
+
   if (deg > 45 && deg <= 135) {
     return GestureDir.Down
   }
+
   if (deg > 135 && deg <= 225) {
     return GestureDir.Left
   }
