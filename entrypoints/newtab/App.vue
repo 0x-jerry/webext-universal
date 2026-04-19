@@ -5,7 +5,7 @@ import Dropdown from './components/Dropdown.vue';
 import RecentClosed from './components/RecentClosed.vue';
 import TopSites from './components/TopSites.vue';
 import Button from './components/Button.vue';
-import Link from './components/Link.vue';
+import { useHorizontalScroll } from '@/utils/useHorizonalScroll';
 
 const filter = ref('')
 
@@ -17,6 +17,8 @@ const bookmarksOther = computed(() => bookmarksData.state.value[0]?.children?.fi
 
 const bookmarksEl = useTemplateRef('bookmarksEl')
 const hasScrollbar = ref(false)
+
+useHorizontalScroll(bookmarksEl)
 
 useResizeObserver(bookmarksEl, () => {
   const el = bookmarksEl.value
