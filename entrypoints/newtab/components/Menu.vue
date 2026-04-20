@@ -21,7 +21,7 @@ const isFolder = computed(() => !props.url)
         <template #reference="{ active }">
           <Link :label="title" :active="active" />
         </template>
-        <div class="bg-white max-h-85vh overflow-y-auto shadow-lg w-400px">
+        <div class="bg-white max-h-85vh overflow-y-auto shadow-lg w-400px border-(0 t solid gray-2)">
           <Menu v-for="(menu, index) in props.children" :key="index" v-bind="menu" />
         </div>
       </Popup>
