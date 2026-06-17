@@ -5,7 +5,6 @@ import GestureDetection from './components/GestureDetection.vue'
 import { isMacOS } from './components/utils'
 import { backgroundServiceClient } from './services'
 
-
 async function detectedGesture(gesture: GestureDir[]) {
   if (await execGestures(gesture)) {
     return
@@ -21,4 +20,9 @@ const isMac = isMacOS()
   <GestureDetection v-if="!isMac" @detected="detectedGesture" />
 </template>
 
-<style lang="less" scoped></style>
+<style lang="less">
+body {
+  margin: 0;
+  padding: 0;
+}
+</style>
