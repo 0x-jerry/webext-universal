@@ -2,6 +2,7 @@
 import { useAsyncState, useResizeObserver } from '@vueuse/core';
 import { browser } from 'wxt/browser'
 import Dropdown from './components/Dropdown.vue';
+import History from './components/History.vue';
 import RecentClosed from './components/RecentClosed.vue';
 import TopSites from './components/TopSites.vue';
 import Button from './components/Button.vue';
@@ -70,6 +71,7 @@ function open(url: string) {
 
       <TopSites :filter="filter" :max-count="10" />
       <RecentClosed :filter="filter" :max-count="20" />
+      <History :filter="filter" :max-count="20" />
     </div>
   </div>
 </template>
