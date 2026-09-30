@@ -3,8 +3,7 @@ name: Release
 on:
   push:
     tags:
-      - "**"
-  workflow_dispatch:
+      - 'v*'
 
 jobs:
   release:
@@ -12,31 +11,18 @@ jobs:
     permissions:
       contents: write
     steps:
-      - uses: actions/checkout@v5
+      - name: Setup bun
+        uses: 0x-jerry/workflows/actions/setup-js@main
         with:
-          fetch-depth: 0
-
-      - uses: pnpm/action-setup@v4
-        with:
-          version: latest
-
-      - uses: actions/setup-node@v6
-        with:
-          node-version: lts/*
-          cache: "pnpm"
-
-      - run: pnpm i
-
-      - name: Generate Release Note
-        run: npx changelogithub --output GEN_CHANGELOG.md
-
+          fetch-all: true
       - name: Generate Chrome Extension
-        run: npm run build:prepare && npm run build && npm run pack:crx
+        run: bun run build:prepare && bun run build && bun run pack:crx
         env:
           WEBEXT_PRIVATE_KEY: ${{ secrets.WEBEXT_PRIVATE_KEY }}
 
-      - uses: softprops/action-gh-release@v2
+      - name: Release
+        id: create-release
+        uses: 0x-jerry/workflows/actions/changelog@main
         with:
-          body_path: GEN_CHANGELOG.md
           files: |
             webext-universal.crx
