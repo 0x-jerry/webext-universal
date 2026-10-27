@@ -16,6 +16,13 @@ interface OriginSite extends LinkItem {
   pathDepth: number
 }
 
+function isLoopbackHost(hostname: string): boolean {
+  if (hostname === 'localhost' || hostname.endsWith('.localhost')) return true
+  if (hostname === '[::1]') return true
+  // URL.parse normalizes IPv4 shorthands (127.1) to the full form, so the dotted quad is enough.
+  return /^127(\.\d{1,3}){3}$/.test(hostname)
+}
+
 export function rankTopSites(entries: Iterable<HistoryEntry>): LinkItem[] {
   const byOrigin = new Map<string, OriginSite>()
 
@@ -24,7 +31,7 @@ export function rankTopSites(entries: Iterable<HistoryEntry>): LinkItem[] {
     if (!url || !title) continue
 
     const parsed = URL.parse(url)
-    if (!parsed?.host) continue
+    if (!parsed?.host || isLoopbackHost(parsed.hostname)) continue
 
     // Non-special schemes (chrome://, extension pages) report a "null" origin, so fall back to their root.
     const origin = parsed.origin === 'null' ? `${parsed.protocol}//${parsed.host}` : parsed.origin
