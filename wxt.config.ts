@@ -25,7 +25,6 @@ export default defineConfig({
       'activeTab',
       'sessions',
       'history',
-      'topSites',
       'bookmarks',
       'favicon',
       'sessions',

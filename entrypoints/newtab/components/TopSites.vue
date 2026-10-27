@@ -1,4 +1,5 @@
 <script lang='ts' setup>
+import { scanTopSites } from '../topSites'
 import LinkSection, { type LinkItem } from './LinkSection.vue'
 
 export interface TopSitesProps {
@@ -8,10 +9,8 @@ export interface TopSitesProps {
 
 defineProps<TopSitesProps>()
 
-async function load(): Promise<LinkItem[]> {
-  const items = await browser.topSites.get()
-
-  return items.map((n) => ({ label: n.title ?? '', url: n.url ?? '' }))
+function load(): Promise<LinkItem[]> {
+  return scanTopSites()
 }
 </script>
 
