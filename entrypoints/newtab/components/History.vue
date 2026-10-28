@@ -1,4 +1,5 @@
 <script lang='ts' setup>
+import { useAsyncState } from '@vueuse/core'
 import LinkSection, { type LinkItem } from './LinkSection.vue'
 
 export interface HistoryProps {
@@ -14,8 +15,10 @@ async function load(): Promise<LinkItem[]> {
 
   return items.map((n) => ({ label: n.title ?? '', url: n.url ?? '' }))
 }
+
+const { state: items } = useAsyncState(load, [])
 </script>
 
 <template>
-  <LinkSection title="History" :filter="filter" :max-count="maxCount" :load="load" />
+  <LinkSection title="History" :links="items" :filter="filter" :max-count="maxCount" />
 </template>

@@ -11,22 +11,21 @@ export interface TopSitesProps {
 defineProps<TopSitesProps>()
 
 const cache = useLocalStorage<LinkItem[]>('top-sites-cache', [])
+const items = shallowRef(cache.value)
 
-async function load(): Promise<LinkItem[]> {
-  // Stale-while-revalidate: render the cache at once, rescan in the background for the next open.
-  const fresh = scanTopSites().then((items) => {
-    cache.value = items
-    return items
-  })
-
-  const cached = cache.value
-  if (!cached.length) return fresh
-
-  fresh.catch(() => {})
-  return cached
+async function refresh() {
+  try {
+    const sites = await scanTopSites()
+    cache.value = sites
+    items.value = sites
+  } catch (err) {
+    console.warn('scan top sites failed:', err)
+  }
 }
+
+refresh()
 </script>
 
 <template>
-  <LinkSection title="Top Sites" :filter="filter" :max-count="maxCount" :load="load" />
+  <LinkSection title="Top Sites" :links="items" :filter="filter" :max-count="maxCount" />
 </template>

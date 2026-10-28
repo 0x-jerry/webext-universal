@@ -1,5 +1,4 @@
 <script lang='ts' setup>
-import { useAsyncState } from '@vueuse/core'
 import { matchString } from '../utils'
 import Link from './Link.vue'
 import NoData from './NoData.vue'
@@ -12,26 +11,19 @@ export interface LinkItem {
 
 export interface LinkSectionProps {
   title: string
+  links: readonly LinkItem[]
   filter?: string
   maxCount?: number
-  load: () => Promise<LinkItem[]>
 }
 
 const props = defineProps<LinkSectionProps>()
 
-const data = useAsyncState(async () => {
-  const items = await props.load()
-
-  return items.filter((n) => !!(n.label && n.url))
-}, [])
-
-data.execute()
-
 const result = computed(() => {
   const value = props.filter
-  const items = value ? data.state.value.filter((n) => matchString(n.label, value) || matchString(n.url, value)) : data.state.value
+  const links = props.links.filter((n) => !!(n.label && n.url))
+  const filtered = value ? links.filter((n) => matchString(n.label, value) || matchString(n.url, value)) : links
 
-  return items.slice(0, props.maxCount)
+  return filtered.slice(0, props.maxCount)
 })
 </script>
 
