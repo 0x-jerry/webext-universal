@@ -39,8 +39,9 @@ export function rankTopSites(entries: Iterable<HistoryEntry>): LinkItem[] {
     site.visits += entry.visitCount ?? 0
 
     // Closest to the site root wins: that page and its title describe the site, not one of its pages.
+    // Same depth: the shorter URL is the cleaner landing page (query strings, tracking params).
     const pathDepth = parsed.pathname.split('/').filter(Boolean).length
-    if (pathDepth < site.pathDepth) {
+    if (pathDepth < site.pathDepth || (pathDepth === site.pathDepth && url.length < site.url.length)) {
       site.label = title
       site.url = url
       site.pathDepth = pathDepth
